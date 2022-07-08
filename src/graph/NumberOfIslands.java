@@ -49,7 +49,7 @@ public class NumberOfIslands {
         int n = arr.length;
         int m = arr[0].length;
 
-        int[][] ops = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+        int[][] ops = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
         if (i < 0 || i > n - 1 || j < 0 || j > m - 1 || vis[i][j] || arr[i][j] == '0') {
             return;
@@ -57,7 +57,7 @@ public class NumberOfIslands {
 
         vis[i][j] = true;
 
-        for (int k = 0; k < 8; k++) {
+        for (int k = 0; k < 4; k++) {
             dfs(arr, i + ops[k][0], j + ops[k][1], vis);
         }
     }
