@@ -1,8 +1,8 @@
-package binarytree;
+package dp;
 
 import java.util.*;
 
-public class ZigzagLevelOrderTraversal {
+public class DiameterOfBinaryTree {
     public static final Scanner sc = new Scanner(System.in);
 
     static public class TreeNode {
@@ -27,46 +27,30 @@ public class ZigzagLevelOrderTraversal {
     public static void main(String[] args) {
         TreeNode root = createBinaryTree();
 
-        System.out.println(zigzagLevelOrder(root));
+        System.out.println(diameterOfBinaryTree(root));
     }
 
-    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> ans = new ArrayList<>();
+    static int d;
 
+    public static int diameterOfBinaryTree(TreeNode root) {
+        d = Integer.MIN_VALUE;
+
+        solve(root);
+
+        return d - 1;
+    }
+
+    private static int solve(TreeNode root) {
         if (root == null) {
-            return ans;
+            return 0;
         }
 
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
+        int lHeight = solve(root.left);
+        int rHeight = solve(root.right);
 
-        int lvl = 0;
-        while (!q.isEmpty()) {
-            int ct = q.size();
-            List<Integer> temp = new ArrayList<>();
+        d = Math.max(d, 1 + lHeight + rHeight);
 
-            while (ct-- > 0) {
-                TreeNode cur = q.poll();
-                temp.add(cur.val);
-
-                if (cur.left != null) {
-                    q.add(cur.left);
-                }
-
-                if (cur.right != null) {
-                    q.add(cur.right);
-                }
-            }
-
-            if (lvl % 2 != 0) {
-                Collections.reverse(temp);
-            }
-
-            ans.add(temp);
-            lvl++;
-        }
-
-        return ans;
+        return 1 + Math.max(lHeight, rHeight);
     }
 
     private static TreeNode createBinaryTree() {
