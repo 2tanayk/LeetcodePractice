@@ -20,8 +20,6 @@ public class FindDuplicateFileInSystem {
     }
 
     public static List<List<String>> findDuplicate(String[] arr) {
-        int n = arr.length;
-
         List<List<String>> ans = new ArrayList<>();
 
         HashMap<String, List<String>> hm = new HashMap<>();
