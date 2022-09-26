@@ -17,9 +17,10 @@ public class SatisfiabilityOfEqualityEquations {
         System.out.println(equationsPossible(equations));
     }
 
-    public static boolean equationsPossible(String[] eqns) {
-        int[] p = new int[26];
+    static int[] p = new int[26];
+    static int[] rank = new int[26];
 
+    public static boolean equationsPossible(String[] eqns) {
         for (int i = 0; i < 26; i++) {
             p[i] = i;
         }
@@ -30,7 +31,17 @@ public class SatisfiabilityOfEqualityEquations {
             int dst = e.charAt(3) - 'a';
 
             if (op == '=') {
-                p[find(p, src)] = find(p, dst);
+                int rS = find(src);
+                int rD = find(dst);
+
+                if (rank[rS] < rank[rD]) {
+                    p[rS] = rD;
+                } else if (rank[rS] > rank[rD]) {
+                    p[rD] = rS;
+                } else {
+                    p[rS] = rD;
+                    rank[rD]++;
+                }
             }
         }
 
@@ -39,7 +50,7 @@ public class SatisfiabilityOfEqualityEquations {
             char op = e.charAt(1);
             int dst = e.charAt(3) - 'a';
 
-            if (op == '!' && find(p, src) == find(p, dst)) {
+            if (op == '!' && find(src) == find(dst)) {
                 return false;
             }
         }
@@ -47,11 +58,11 @@ public class SatisfiabilityOfEqualityEquations {
         return true;
     }
 
-    private static int find(int[] p, int c) {
-        if (p[c] != c) {
-            p[c] = find(p, p[c]);
+    private static int find(int c) {
+        if (p[c] == c) {
+            return c;
         }
 
-        return p[c];
+        return p[c] = find(p[c]);
     }
 }
