@@ -31,24 +31,28 @@ public class MinTimeToMakeRopeColorful {
             char nxt = col.charAt(i + 1);
 
             if (cur == nxt) {
-                PriorityQueue<Integer> pq = new PriorityQueue<>();
+                int max = 0;
 
                 while (i + 1 < len) {
                     cur = col.charAt(i);
                     nxt = col.charAt(i + 1);
 
+                    ans += time[i];
+                    max = Math.max(max, time[i]);
+
                     if (cur != nxt) {
                         break;
                     }
 
-                    pq.add(time[i]);
+                    if (i == len - 2) {
+                        ans += time[i + 1];
+                        max = Math.max(max, time[i + 1]);
+                    }
+
                     i++;
                 }
-                pq.add(time[i]);
 
-                while (pq.size() != 1) {
-                    ans += pq.poll();
-                }
+                ans -= max;
             }
 
             i++;
