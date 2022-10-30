@@ -72,5 +72,4 @@ public class ShortestPathInAGridWithObstaclesElimination {
 
         return -1;
     }
-
 }
