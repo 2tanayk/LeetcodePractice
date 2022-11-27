@@ -2,7 +2,7 @@ package dp;
 
 import java.util.*;
 
-public class ArithmeticSlicesIISubsequence {
+public class ArithmeticSlices2Subsequence {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
